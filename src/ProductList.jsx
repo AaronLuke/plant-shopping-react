@@ -20,6 +20,18 @@ function ProductList() {
         return cartQuantity;
     }
 
+    const isPlantAdded = (plant) => {
+        let inCart = false;
+
+        cart.forEach((item) => {
+            if(item.name == plant.name){
+                inCart = true;
+            }
+        })
+
+        return inCart;
+    }
+
     const handleAddToCart = (product) => {
         dispatch(addItem(product));
         setAddedToCart((prevState) => ({
@@ -360,7 +372,7 @@ const handlePlantsClick = (e) => {
                             <img className="product-image" src={plant.image} alt={plant.name} />
                             <div className="product-title">{plant.name}</div>
                             {/*Similarly like the above plant.name show other details like description and cost*/}
-                            <button  className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                            <button  className={isPlantAdded(plant) ? "product-button-disabled" : "product-button"} onClick={() => handleAddToCart(plant)}>{isPlantAdded(plant) ? "Added to Cart" : "Add to Cart"}</button>
                         </div>
                         ))}
                     </div>
